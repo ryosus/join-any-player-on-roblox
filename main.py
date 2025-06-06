@@ -111,16 +111,18 @@ def find_player_in_servers(place_id, user_avatar_url, min_player_count):
     return found, job_id
 
 if __name__ == "__main__":
-    username = input("Enter the username: ")
+    user = input("Enter the username/ID: ")
     place_id = input("Enter the place ID: ")
     min_player_count = int(input("Enter the minimum player count: "))
-
-    user_id = get_id_from_user(username)
-    if not user_id:
+    try:
+        int(user)
+    except:
+        user = get_id_from_user(user)
+    if not user:
         print("User not found.")
         exit(1)
 
-    user_avatar_url = get_user_avatar_by_id(user_id)
+    user_avatar_url = get_user_avatar_by_id(user)
     print(f"Avatar URL: {user_avatar_url}")
 
     found, job_id = find_player_in_servers(place_id, user_avatar_url, min_player_count)
